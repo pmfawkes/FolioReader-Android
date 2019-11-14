@@ -107,6 +107,7 @@ class FolioWebView : WebView {
     private var destroyed: Boolean = false
     private var handleHeight: Int = 0
 
+    private var isHighlightClicked: Boolean = false
     private var lastScrollType: LastScrollType? = null
 
     val contentHeightVal: Int
@@ -164,18 +165,18 @@ class FolioWebView : WebView {
     private inner class HorizontalGestureListener : GestureDetector.SimpleOnGestureListener() {
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-            //Log.d(LOG_TAG, "-> onScroll -> e1 = " + e1 + ", e2 = " + e2 + ", distanceX = " + distanceX + ", distanceY = " + distanceY);
+            // Log.d(LOG_TAG, "-> onScroll -> e1 = " + e1 + ", e2 = " + e2 + ", distanceX = " + distanceX + ", distanceY = " + distanceY);
             lastScrollType = LastScrollType.USER
             return false
         }
 
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            //Log.d(LOG_TAG, "-> onFling -> e1 = " + e1 + ", e2 = " + e2 + ", velocityX = " + velocityX + ", velocityY = " + velocityY);
+            // Log.d(LOG_TAG, "-> onFling -> e1 = " + e1 + ", e2 = " + e2 + ", velocityX = " + velocityX + ", velocityY = " + velocityY);
 
             if (!webViewPager.isScrolling) {
                 // Need to complete the scroll as ViewPager thinks these touch events should not
                 // scroll it's pages.
-                //Log.d(LOG_TAG, "-> onFling -> completing scroll");
+                // Log.d(LOG_TAG, "-> onFling -> completing scroll");
                 uiHandler.postDelayed({
                     // Delayed to avoid inconsistency of scrolling in WebView
                     scrollTo(getScrollXPixelsForPage(webViewPager!!.currentItem), 0)
@@ -187,7 +188,7 @@ class FolioWebView : WebView {
         }
 
         override fun onDown(event: MotionEvent): Boolean {
-            //Log.v(LOG_TAG, "-> onDown -> " + event.toString());
+            // Log.v(LOG_TAG, "-> onDown -> " + event.toString());
 
             eventActionDown = MotionEvent.obtain(event)
             super@FolioWebView.onTouchEvent(event)
@@ -220,13 +221,13 @@ class FolioWebView : WebView {
     private inner class VerticalGestureListener : GestureDetector.SimpleOnGestureListener() {
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-            //Log.v(LOG_TAG, "-> onScroll -> e1 = " + e1 + ", e2 = " + e2 + ", distanceX = " + distanceX + ", distanceY = " + distanceY);
+            // Log.v(LOG_TAG, "-> onScroll -> e1 = " + e1 + ", e2 = " + e2 + ", distanceX = " + distanceX + ", distanceY = " + distanceY);
             lastScrollType = LastScrollType.USER
             return false
         }
 
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            //Log.v(LOG_TAG, "-> onFling -> e1 = " + e1 + ", e2 = " + e2 + ", velocityX = " + velocityX + ", velocityY = " + velocityY);
+            // Log.v(LOG_TAG, "-> onFling -> e1 = " + e1 + ", e2 = " + e2 + ", velocityX = " + velocityX + ", velocityY = " + velocityY);
             lastScrollType = LastScrollType.USER
             return false
         }
@@ -271,23 +272,48 @@ class FolioWebView : WebView {
 
         viewTextSelection.yellowHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> yellowHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Yellow, false)
+            if (!isHighlightClicked) {
+                onHighlightColorItemsClicked(HighlightStyle.Yellow, false)
+            } else {
+                dismissPopupWindow()
+                loadUrl("javascript:clearSelection()")
+            }
         }
         viewTextSelection.greenHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> greenHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Green, false)
+            if (!isHighlightClicked) {
+                onHighlightColorItemsClicked(HighlightStyle.Green, false)
+            } else {
+                dismissPopupWindow()
+                loadUrl("javascript:clearSelection()")
+            }
         }
         viewTextSelection.blueHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> blueHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Blue, false)
+            if (!isHighlightClicked) {
+                onHighlightColorItemsClicked(HighlightStyle.Blue, false)
+            } else {
+                dismissPopupWindow()
+                loadUrl("javascript:clearSelection()")
+            }
         }
         viewTextSelection.pinkHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> pinkHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Pink, false)
+            if (!isHighlightClicked) {
+                onHighlightColorItemsClicked(HighlightStyle.Pink, false)
+            } else {
+                dismissPopupWindow()
+                loadUrl("javascript:clearSelection()")
+            }
         }
         viewTextSelection.underlineHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> underlineHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Underline, false)
+            if (!isHighlightClicked) {
+                onHighlightColorItemsClicked(HighlightStyle.Underline, false)
+            } else {
+                dismissPopupWindow()
+                loadUrl("javascript:clearSelection()")
+            }
         }
         viewTextSelection.deleteHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> deleteHighlight")
@@ -373,7 +399,7 @@ class FolioWebView : WebView {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        //Log.v(LOG_TAG, "-> onTouchEvent -> " + AppUtil.actionToString(event.getAction()));
+        // Log.v(LOG_TAG, "-> onTouchEvent -> " + AppUtil.actionToString(event.getAction()));
 
         lastTouchAction = event.action
 
@@ -391,7 +417,7 @@ class FolioWebView : WebView {
     }
 
     private fun computeHorizontalScroll(event: MotionEvent): Boolean {
-        //Log.v(LOG_TAG, "-> computeHorizontalScroll");
+        // Log.v(LOG_TAG, "-> computeHorizontalScroll");
 
         webViewPager.dispatchTouchEvent(event)
         val gestureReturn = gestureDetector.onTouchEvent(event)
@@ -399,12 +425,12 @@ class FolioWebView : WebView {
     }
 
     fun getScrollXDpForPage(page: Int): Int {
-        //Log.v(LOG_TAG, "-> getScrollXDpForPage -> page = " + page);
+        // Log.v(LOG_TAG, "-> getScrollXDpForPage -> page = " + page);
         return page * pageWidthCssDp
     }
 
     fun getScrollXPixelsForPage(page: Int): Int {
-        //Log.v(LOG_TAG, "-> getScrollXPixelsForPage -> page = " + page);
+        // Log.v(LOG_TAG, "-> getScrollXPixelsForPage -> page = " + page);
         return Math.ceil((page * pageWidthCssPixels).toDouble()).toInt()
     }
 
@@ -419,7 +445,7 @@ class FolioWebView : WebView {
 
     override fun scrollTo(x: Int, y: Int) {
         super.scrollTo(x, y)
-        //Log.d(LOG_TAG, "-> scrollTo -> x = " + x);
+        // Log.d(LOG_TAG, "-> scrollTo -> x = " + x);
         lastScrollType = LastScrollType.PROGRAMMATIC
     }
 
@@ -428,7 +454,7 @@ class FolioWebView : WebView {
         super.onScrollChanged(l, t, oldl, oldt)
 
         if (lastScrollType == LastScrollType.USER) {
-            //Log.d(LOG_TAG, "-> onScrollChanged -> scroll initiated by user");
+            // Log.d(LOG_TAG, "-> onScrollChanged -> scroll initiated by user");
             parentFragment.searchLocatorVisible = null
         }
 
@@ -523,8 +549,8 @@ class FolioWebView : WebView {
 
         return actionMode as ActionMode
 
-        //Comment above code and uncomment below line for stock text selection
-        //return super.startActionMode(callback)
+        // Comment above code and uncomment below line for stock text selection
+        // return super.startActionMode(callback)
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -544,8 +570,8 @@ class FolioWebView : WebView {
 
         return actionMode as ActionMode
 
-        //Comment above code and uncomment below line for stock text selection
-        //return super.startActionMode(callback, type)
+        // Comment above code and uncomment below line for stock text selection
+        // return super.startActionMode(callback, type)
     }
 
     private fun applyThemeColorToHandles() {
@@ -606,14 +632,14 @@ class FolioWebView : WebView {
                 mChildrenField.isAccessible = true
                 val mChildren = mChildrenField.get(view) as kotlin.Array<View>
 
-                //val pathClassLoader = PathClassLoader("/system/app/Chrome/Chrome.apk", ClassLoader.getSystemClassLoader())
+                // val pathClassLoader = PathClassLoader("/system/app/Chrome/Chrome.apk", ClassLoader.getSystemClassLoader())
 
                 val pathClassLoader = PathClassLoader("/system/app/Chrome/Chrome.apk", folioActivityRef.get()?.classLoader)
 
                 val popupTouchHandleDrawableClass = Class.forName("org.chromium.android_webview.PopupTouchHandleDrawable",
                         true, pathClassLoader)
 
-                //if (!popupTouchHandleDrawableClass.isInstance(mChildren[0]))
+                // if (!popupTouchHandleDrawableClass.isInstance(mChildren[0]))
                 //    continue
 
                 val mDrawableField = ReflectionUtils.findField(popupTouchHandleDrawableClass, "mDrawable")
@@ -625,7 +651,7 @@ class FolioWebView : WebView {
     }
 
     @JavascriptInterface
-    fun setSelectionRect(left: Int, top: Int, right: Int, bottom: Int) {
+    fun setSelectionRect(left: Int, top: Int, right: Int, bottom: Int, isHighlightClicked: Boolean = false) {
 
         val currentSelectionRect = Rect()
         currentSelectionRect.left = (left * density).toInt()
@@ -635,6 +661,7 @@ class FolioWebView : WebView {
         Log.d(LOG_TAG, "-> setSelectionRect -> $currentSelectionRect")
 
         computeTextSelectionRect(currentSelectionRect)
+        this.isHighlightClicked = isHighlightClicked
         uiHandler.post { showTextSelectionPopup() }
     }
 
@@ -669,20 +696,20 @@ class FolioWebView : WebView {
         val belowSelectionRect = Rect(viewportRect)
         belowSelectionRect.top = selectionRect.bottom + handleHeight
 
-        //Log.d(LOG_TAG, "-> aboveSelectionRect -> " + aboveSelectionRect);
-        //Log.d(LOG_TAG, "-> belowSelectionRect -> " + belowSelectionRect);
+        // Log.d(LOG_TAG, "-> aboveSelectionRect -> " + aboveSelectionRect);
+        // Log.d(LOG_TAG, "-> belowSelectionRect -> " + belowSelectionRect);
 
         // Priority to show popupWindow will be as following -
         // 1. Show popupWindow below selectionRect, if space available
         // 2. Show popupWindow above selectionRect, if space available
         // 3. Show popupWindow in the middle of selectionRect
 
-        //popupRect initialisation for belowSelectionRect
+        // popupRect initialisation for belowSelectionRect
         popupRect.left = viewportRect.left
         popupRect.top = belowSelectionRect.top
         popupRect.right = popupRect.left + viewTextSelection.measuredWidth
         popupRect.bottom = popupRect.top + viewTextSelection.measuredHeight
-        //Log.d(LOG_TAG, "-> Pre decision popupRect -> " + popupRect);
+        // Log.d(LOG_TAG, "-> Pre decision popupRect -> " + popupRect);
 
         val popupY: Int
         if (belowSelectionRect.contains(popupRect)) {
@@ -711,7 +738,7 @@ class FolioWebView : WebView {
         val popupX = selectionRect.left - popupXDiff
 
         popupRect.offsetTo(popupX, popupY)
-        //Log.d(LOG_TAG, "-> Post decision popupRect -> " + popupRect);
+        // Log.d(LOG_TAG, "-> Post decision popupRect -> " + popupRect);
 
         // Check if popupRect left side is going outside of the viewportRect
         if (popupRect.left < viewportRect.left) {
