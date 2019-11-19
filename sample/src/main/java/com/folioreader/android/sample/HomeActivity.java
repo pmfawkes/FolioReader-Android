@@ -16,8 +16,8 @@
 package com.folioreader.android.sample;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -93,7 +93,7 @@ public class HomeActivity extends AppCompatActivity
 
                 folioReader.setReadLocator(readLocator);
                 folioReader.setConfig(config, true)
-                    .openBook("file:///android_asset/jacob2.epub");
+                    .openBook("file:///android_asset/TheSilverChair.epub");
             }
         });
     }

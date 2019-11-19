@@ -3,9 +3,9 @@ package com.folioreader;
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 
 import org.json.JSONObject;

@@ -2,16 +2,16 @@ package com.folioreader.view
 
 import android.content.Context
 import android.os.Handler
-import android.support.v4.view.GestureDetectorCompat
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
+import androidx.core.view.GestureDetectorCompat
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.util.Log
 import android.view.*
 import android.webkit.JavascriptInterface
 import com.folioreader.R
 
-class WebViewPager : ViewPager {
+class WebViewPager : androidx.viewpager.widget.ViewPager {
 
     companion object {
         @JvmField
@@ -42,7 +42,7 @@ class WebViewPager : ViewPager {
         uiHandler = Handler()
         gestureDetector = GestureDetectorCompat(context, GestureListener())
 
-        addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 // Log.d(LOG_TAG, "-> onPageScrolled -> position = " + position +
                 // ", positionOffset = " + positionOffset + ", positionOffsetPixels = " + positionOffsetPixels);
@@ -72,9 +72,9 @@ class WebViewPager : ViewPager {
 
     private fun getScrollStateString(state: Int): String {
         return when (state) {
-            ViewPager.SCROLL_STATE_IDLE -> "SCROLL_STATE_IDLE"
-            ViewPager.SCROLL_STATE_DRAGGING -> "SCROLL_STATE_DRAGGING"
-            ViewPager.SCROLL_STATE_SETTLING -> "SCROLL_STATE_SETTLING"
+            androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE -> "SCROLL_STATE_IDLE"
+            androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING -> "SCROLL_STATE_DRAGGING"
+            androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING -> "SCROLL_STATE_SETTLING"
             else -> "UNKNOWN_STATE"
         }
     }
@@ -161,7 +161,7 @@ class WebViewPager : ViewPager {
         return superReturn
     }
 
-    private inner class WebViewPagerAdapter : PagerAdapter() {
+    private inner class WebViewPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
 
         override fun getCount(): Int {
             return horizontalPageCount

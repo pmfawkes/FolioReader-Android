@@ -9,9 +9,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.LocalBroadcastManager
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -61,7 +61,7 @@ import kotlin.math.round
 /**
  * Created by mahavir on 4/2/16.
  */
-class FolioPageFragment : Fragment(),
+class FolioPageFragment : androidx.fragment.app.Fragment(),
         HtmlTaskCallback, MediaControllerCallbacks, FolioWebView.SeekBarListener {
 
     companion object {
@@ -635,7 +635,7 @@ class FolioPageFragment : Fragment(),
             intent.putExtra(FolioReader.EXTRA_READ_LOCATOR, lastReadLocator as Parcelable?)
             intent.putExtra(FolioReader.EXTRA_READ_PERCENT, currentReadingPercent)
             intent.putExtra(FolioReader.EXTRA_LOCATION_CHANGED_TYPE, lastLocationChangedType)
-            LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context!!).sendBroadcast(intent)
 
             (this as java.lang.Object).notify()
         }

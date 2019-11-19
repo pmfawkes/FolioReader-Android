@@ -6,11 +6,11 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +54,7 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         view.viewTreeObserver.addOnGlobalLayoutListener {
             val dialog = dialog as BottomSheetDialog
-            val bottomSheet = dialog.findViewById<View>(android.support.design.R.id.design_bottom_sheet) as FrameLayout?
+            val bottomSheet = dialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
             val behavior = BottomSheetBehavior.from(bottomSheet!!)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.peekHeight = 0
@@ -272,7 +272,7 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private fun setAudioPlayerBackground() {
 
-        var mediaControllerFragment: Fragment? = fragmentManager?.
+        var mediaControllerFragment: androidx.fragment.app.Fragment? = fragmentManager?.
                 findFragmentByTag(MediaControllerFragment.LOG_TAG) ?: return
         mediaControllerFragment = mediaControllerFragment as MediaControllerFragment
         if (isNightMode) {

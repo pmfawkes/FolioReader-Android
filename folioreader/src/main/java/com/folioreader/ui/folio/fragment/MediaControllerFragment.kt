@@ -3,11 +3,11 @@ package com.folioreader.ui.folio.fragment
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.core.content.ContextCompat
 import android.text.Html
 import android.util.Log
 import android.view.KeyEvent
@@ -34,7 +34,7 @@ class MediaControllerFragment : BottomSheetDialogFragment() {
         private const val BUNDLE_IS_VISIBLE = "BUNDLE_IS_VISIBLE"
 
         @JvmStatic
-        fun getInstance(supportFragmentManager: FragmentManager,
+        fun getInstance(supportFragmentManager: androidx.fragment.app.FragmentManager,
                         callback: MediaControllerCallback): MediaControllerFragment {
 
             var mediaControllerFragment = supportFragmentManager.findFragmentByTag(LOG_TAG)
@@ -147,7 +147,7 @@ class MediaControllerFragment : BottomSheetDialogFragment() {
         //Log.v(LOG_TAG, "-> onViewStateRestored -> $visible")
     }
 
-    fun show(fragmentManager: FragmentManager) {
+    fun show(fragmentManager: androidx.fragment.app.FragmentManager) {
         Log.v(LOG_TAG, "-> show")
 
         visible = true

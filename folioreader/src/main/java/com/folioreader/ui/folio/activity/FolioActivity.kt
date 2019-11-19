@@ -29,13 +29,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
@@ -255,7 +255,7 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
         displayMetrics = resources.displayMetrics
         display.getRealMetrics(displayMetrics)
         density = displayMetrics!!.density
-        LocalBroadcastManager.getInstance(this).registerReceiver(closeBroadcastReceiver,
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).registerReceiver(closeBroadcastReceiver,
                 IntentFilter(FolioReader.ACTION_CLOSE_FOLIOREADER))
 
         // Fix for screen get turned off while reading
@@ -809,7 +809,7 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
         if (outState != null)
             outState!!.putSerializable(BUNDLE_READ_LOCATOR_CONFIG_CHANGE, lastReadLocator)
 
-        val localBroadcastManager = LocalBroadcastManager.getInstance(this)
+        val localBroadcastManager = androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this)
         localBroadcastManager.unregisterReceiver(searchReceiver)
         localBroadcastManager.unregisterReceiver(closeBroadcastReceiver)
 
@@ -905,7 +905,7 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
             mFolioPageViewPager!!.currentItem = currentChapterIndex
         }
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(searchReceiver,
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).registerReceiver(searchReceiver,
                 IntentFilter(ACTION_SEARCH_CLEAR))
     }
 
