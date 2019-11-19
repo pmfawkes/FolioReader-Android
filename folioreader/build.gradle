@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply from: '../config/quality/quality.gradle'
-apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: '../versions.gradle'
 
 ext {
     bintrayRepo = 'maven'
@@ -76,7 +76,6 @@ android {
     }
 }
 
-apply from: '../folioreader/bintray/installv1.gradle'
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -104,14 +103,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-jackson:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 
-    // R2 modules
-    api("com.github.codetoart:r2-shared-kotlin:$versions.r2SharedKotlin") {
-        changing = true
-    }
-    api("com.github.codetoart:r2-streamer-kotlin:$versions.r2StreamerKotlin") {
-        exclude group: "org.slf4j", module: "slf4j-api"
-        changing = true
-    }
+    api project(":r2-shared-kotlin")
+    api project(":r2-streamer-kotlin")
 
     // Only ReflectionUtils in Spring framework is used
     implementation 'org.springframework:spring-core:4.3.19.RELEASE'
@@ -119,4 +112,3 @@ dependencies {
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 }
-apply from: '../folioreader/bintray/bintrayv1.gradle'

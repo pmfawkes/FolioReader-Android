@@ -506,7 +506,7 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
     private fun onBookInitSuccess() {
 
         val publication = pubBox!!.publication
-        spine = publication.readingOrder
+        spine = publication.spine
         title = publication.metadata.title
 
         if (mBookId == null) {

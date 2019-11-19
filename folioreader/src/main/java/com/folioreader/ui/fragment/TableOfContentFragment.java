@@ -91,7 +91,7 @@ public class TableOfContentFragment extends Fragment implements TOCAdapter.TOCCa
                 }
                 onLoadTOC(tocLinkWrappers);
             } else {
-                onLoadTOC(createTOCFromSpine(publication.getReadingOrder()));
+                onLoadTOC(createTOCFromSpine(publication.getSpine()));
             }
         } else {
             onError();
