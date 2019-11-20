@@ -309,12 +309,24 @@ $(function () {
 
         highlightSelection: function (color) {
             try {
-
-                this.highlighter.highlightSelection(color, null);
-                var range = window.getSelection().toString();
-                var params = {content: range, rangy: this.getHighlights(), color: color};
+                if(this.highlighter.selectionOverlapsHighlight())
+                {
+                    this.onHighlightFailed()
+                } else {
+                    this.highlighter.highlightSelection(color, null);
+                    var range = window.getSelection().toString();
+                    var params = {content: range, rangy: this.getHighlights(), color: color};
+                    Highlight.onReceiveHighlights(JSON.stringify(params));
+                }
                 this.clearSelection();
-                Highlight.onReceiveHighlights(JSON.stringify(params));
+            } catch (err) {
+                console.log("highlightSelection : " + err);
+            }
+        },
+
+        onHighlightFailed: function () {
+            try {
+                Highlight.onHighlightFailed();
             } catch (err) {
                 console.log("highlightSelection : " + err);
             }
@@ -807,7 +819,7 @@ function onClickHighlight(element) {
     event.stopPropagation();
     thisHighlight = element;
     var rectJson = getSelectionRect(element);
-    FolioWebView.setSelectionRect(rectJson.left, rectJson.top, rectJson.right, rectJson.bottom);
+    FolioWebView.setSelectionRect(rectJson.left, rectJson.top, rectJson.right, rectJson.bottom,true);
 }
 
 function deleteThisHighlight() {

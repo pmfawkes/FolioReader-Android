@@ -366,7 +366,8 @@
                     // Check for intersection with existing highlights. For each intersection, create a new highlight
                     // which is the union of the highlight range and the selected range
                     for (j = 0; j < highlights.length; ++j) {
-                        removeHighlight = false;
+                        highlightsToKeep.push(highlights[j]);
+                       /* removeHighlight = false;
 
                         if (containerElementId == highlights[j].containerElementId) {
                             highlightCharRange = highlights[j].characterRange;
@@ -399,7 +400,7 @@
                             highlights[j] = new Highlight(doc, highlightCharRange.union(charRange), classApplier, converter, null, containerElementId);
                         } else {
                             highlightsToKeep.push(highlights[j]);
-                        }
+                        }*/
                     }
 
                     // Add new range

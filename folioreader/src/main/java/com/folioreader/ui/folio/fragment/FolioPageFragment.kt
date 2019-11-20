@@ -20,8 +20,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.webkit.*
-import android.widget.FrameLayout
-import android.widget.TextView
+import android.widget.*
 import com.folioreader.Config
 import com.folioreader.Constants
 import com.folioreader.FolioReader
@@ -167,13 +166,13 @@ class FolioPageFragment : Fragment(),
 
         if (spineItem != null) {
             // SMIL Parsing not yet implemented in r2-streamer-kotlin
-            //if (spineItem.getProperties().contains("media-overlay")) {
+            // if (spineItem.getProperties().contains("media-overlay")) {
             //    mediaController = new MediaController(getActivity(), MediaController.MediaType.SMIL, this);
             //    hasMediaOverlay = true;
-            //} else {
+            // } else {
             mediaController = MediaController(activity, MediaController.MediaType.TTS, this)
             mediaController!!.setTextToSpeech(activity)
-            //}
+            // }
         }
         highlightStyle = HighlightImpl.HighlightStyle.classForStyle(HighlightImpl.HighlightStyle.Normal)
         mRootView = inflater.inflate(R.layout.folio_page_fragment, container, false)
@@ -600,7 +599,7 @@ class FolioPageFragment : Fragment(),
         Log.v(LOG_TAG, "-> onStop -> " + spineItem!!.href + " -> " + isCurrentFragment)
 
         mediaController!!.stop()
-        //TODO save last media overlay item
+        // TODO save last media overlay item
 
     }
 
@@ -805,6 +804,10 @@ class FolioPageFragment : Fragment(),
         }
     }
 
+    @JavascriptInterface
+    fun onHighlightFailed() {
+       Toast.makeText(activity!!.applicationContext, "You cannot add overlapping text highlight.", Toast.LENGTH_LONG).show()
+    }
     override fun highLightText(fragmentId: String) {
         mWebview!!.loadUrl(String.format(getString(R.string.audio_mark_id), fragmentId))
     }
