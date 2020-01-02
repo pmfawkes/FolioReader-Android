@@ -17,7 +17,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -41,7 +41,7 @@ dependencies {
     implementation('com.mcxiaoke.koi:async:0.5.5') {
         exclude module: 'support-v4'
     }
-    implementation "com.android.support:appcompat-v7:$versions.androidSupportLibVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
     api 'org.nanohttpd:nanohttpd:2.3.1'
     api 'org.nanohttpd:nanohttpd-nanolets:2.3.1'
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -57,7 +57,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.10.2'
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
 }

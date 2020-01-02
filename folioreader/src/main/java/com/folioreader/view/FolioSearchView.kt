@@ -3,9 +3,9 @@ package com.folioreader.view
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.ColorUtils
-import android.support.v7.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
+import androidx.appcompat.widget.SearchView
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View

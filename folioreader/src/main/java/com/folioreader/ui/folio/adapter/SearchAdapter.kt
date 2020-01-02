@@ -3,7 +3,7 @@ package com.folioreader.ui.folio.adapter
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
@@ -16,7 +16,7 @@ import com.folioreader.R
 import com.folioreader.model.locators.SearchItemType
 import com.folioreader.model.locators.SearchLocator
 
-class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class SearchAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder> {
 
     companion object {
         @JvmField
@@ -58,7 +58,7 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return listViewType.value
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
         val viewHolder: ViewHolder
 
@@ -105,7 +105,7 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
 
         val viewHolder = holder as ViewHolder
 

@@ -1,10 +1,7 @@
 package com.folioreader.util;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -16,9 +13,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;

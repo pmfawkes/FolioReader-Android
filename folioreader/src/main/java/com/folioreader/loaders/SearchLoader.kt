@@ -4,7 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.content.AsyncTaskLoader
+import androidx.loader.content.AsyncTaskLoader
 import android.util.Log
 import com.folioreader.model.locators.SearchItemType
 import com.folioreader.model.locators.SearchLocator
@@ -23,7 +23,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
 
-class SearchLoader : AsyncTaskLoader<Any?> {
+class SearchLoader : androidx.loader.content.AsyncTaskLoader<Any?> {
 
     companion object {
         @JvmField
