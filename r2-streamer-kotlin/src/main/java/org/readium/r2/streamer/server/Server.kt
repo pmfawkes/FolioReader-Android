@@ -44,10 +44,10 @@ abstract class AbstractServer(private var port: Int) : RouterNanoHTTPD(port) {
 
     private fun addFont(name: String, assets: AssetManager, context: Context) {
         val inputStream = assets.open("fonts/$name")
-        val dir = File(context.getExternalFilesDir(null).path + "/fonts/")
+        val dir = File(context.getExternalFilesDir(null)?.path + "/fonts/")
         dir.mkdirs()
-        inputStream.toFile(context.getExternalFilesDir(null).path + "/fonts/" + name)
-        val file = File(context.getExternalFilesDir(null).path + "/fonts/" + name)
+        inputStream.toFile(context.getExternalFilesDir(null)?.path + "/fonts/" + name)
+        val file = File(context.getExternalFilesDir(null)?.path + "/fonts/" + name)
         fonts.add(name, file)
     }
 
