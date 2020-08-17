@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply from: '../config/quality/quality.gradle'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: '../versions.gradle'
@@ -69,10 +68,6 @@ android {
     lintOptions {
         abortOnError false
         lintConfig file("lint.xml")
-    }
-
-    checkstyle {
-        ignoreFailures = true
     }
 }
 
