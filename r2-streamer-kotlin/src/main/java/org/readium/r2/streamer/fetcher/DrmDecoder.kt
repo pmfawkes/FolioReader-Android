@@ -48,13 +48,13 @@ class DrmDecoder {
                             val count = inflater.inflate(buf)
                             output.write(buf, 0, count)
                         } catch (e: Exception) {
-                            Log.e("output.write", e.message)
+                            Log.e("output.write", e.message.toString())
                         }
                     }
                     try {
                         output.close()
                     } catch (e: Exception) {
-                        Log.e("output.close", e.message)
+                        Log.e("output.close", e.message.toString())
                     }
                     data = output.toByteArray()
                     
