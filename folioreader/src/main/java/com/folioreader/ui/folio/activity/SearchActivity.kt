@@ -125,7 +125,7 @@ class SearchActivity : AppCompatActivity(), androidx.loader.app.LoaderManager.Lo
             Log.e(LOG_TAG, "-> ", e)
         }
 
-        searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)
+        searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)!!
 
         var loaderBundle: Bundle? = null
         val dataBundle = intent.getBundleExtra(SearchAdapter.DATA_BUNDLE)
@@ -155,7 +155,7 @@ class SearchActivity : AppCompatActivity(), androidx.loader.app.LoaderManager.Lo
         Log.v(LOG_TAG, "-> onNewIntent")
 
         if (intent.hasExtra(BUNDLE_SEARCH_URI)) {
-            searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)
+            searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)!!
         } else {
             intent.putExtra(BUNDLE_SEARCH_URI, searchUri)
         }
@@ -169,7 +169,7 @@ class SearchActivity : AppCompatActivity(), androidx.loader.app.LoaderManager.Lo
     private fun handleSearch() {
         Log.v(LOG_TAG, "-> handleSearch")
 
-        val query: String = intent.getStringExtra(SearchManager.QUERY)
+        val query: String = intent.getStringExtra(SearchManager.QUERY)!!
         val loaderBundle = Bundle()
         loaderBundle.putParcelable(BUNDLE_SEARCH_URI, searchUri)
         loaderBundle.putString(SearchManager.QUERY, query)
@@ -288,9 +288,9 @@ class SearchActivity : AppCompatActivity(), androidx.loader.app.LoaderManager.Lo
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        val itemId = item?.itemId
+        val itemId = item.itemId
 
         if (itemId == R.id.itemSearch) {
             Log.v(LOG_TAG, "-> onOptionsItemSelected -> ${item.title}")
