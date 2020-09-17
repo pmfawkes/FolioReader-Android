@@ -392,9 +392,9 @@ class FolioPageFragment : androidx.fragment.app.Fragment(),
 
         mWebview!!.addJavascriptInterface(this, "Highlight")
         mWebview!!.addJavascriptInterface(this, "FolioPageFragment")
-        webViewPager?.let { mWebview!!.addJavascriptInterface(it, "WebViewPager") }
-        loadingView?.let { mWebview!!.addJavascriptInterface(it, "LoadingView") }
-        mWebview?.let { mWebview!!.addJavascriptInterface(it, "FolioWebView") }
+        mWebview!!.addJavascriptInterface(webViewPager!!, "WebViewPager")
+        mWebview!!.addJavascriptInterface(loadingView!!, "LoadingView")
+        mWebview!!.addJavascriptInterface(mWebview!!, "FolioWebView")
 
         mWebview!!.setScrollListener(object : FolioWebView.ScrollListener {
             override fun onScrollChange(percentV: Int, percentH: Int) {

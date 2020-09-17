@@ -793,10 +793,10 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
 
             } else if (type == HIGHLIGHT_SELECTED) {
                 val highlightImpl = data.getParcelableExtra<HighlightImpl>(HIGHLIGHT_ITEM)
-                currentChapterIndex = highlightImpl?.pageNumber ?: 0
+                currentChapterIndex = highlightImpl.pageNumber
                 mFolioPageViewPager!!.currentItem = currentChapterIndex
                 val folioPageFragment = currentFragment ?: return
-                highlightImpl?.rangy?.let { folioPageFragment.scrollToHighlightId(it) }
+                highlightImpl.rangy?.let { folioPageFragment.scrollToHighlightId(it) }
             }
         } else {
             isMenuOpen = false

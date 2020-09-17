@@ -206,7 +206,7 @@ class FolioWebView : WebView {
             uiHandler.post { popupWindow.dismiss() }
         }
         selectionRect = Rect()
-        isScrollingRunnable?.let { uiHandler.removeCallbacks(it) }
+        uiHandler.removeCallbacks(isScrollingRunnable!!)
         isScrollingCheckDuration = 0
         return wasShowing
     }
@@ -675,7 +675,7 @@ class FolioWebView : WebView {
             Log.i(LOG_TAG, "-> currentSelectionRect doesn't intersects viewportRect")
             uiHandler.post {
                 popupWindow.dismiss()
-                isScrollingRunnable?.let { uiHandler.removeCallbacks(it) }
+                uiHandler.removeCallbacks(isScrollingRunnable!!)
             }
             return
         }
@@ -763,7 +763,7 @@ class FolioWebView : WebView {
         oldScrollY = scrollY
 
         isScrollingRunnable = Runnable {
-            isScrollingRunnable?.let { uiHandler.removeCallbacks(it) }
+            uiHandler.removeCallbacks(isScrollingRunnable!!)
             val currentScrollX = scrollX
             val currentScrollY = scrollY
             val inTouchMode = lastTouchAction == MotionEvent.ACTION_DOWN ||
@@ -782,17 +782,15 @@ class FolioWebView : WebView {
                 oldScrollY = currentScrollY
                 isScrollingCheckDuration += IS_SCROLLING_CHECK_TIMER
                 if (isScrollingCheckDuration < IS_SCROLLING_CHECK_MAX_DURATION && !destroyed)
-                    isScrollingRunnable?.let {
-                        uiHandler.postDelayed(it, IS_SCROLLING_CHECK_TIMER.toLong())
-                    }
+                    uiHandler.postDelayed(isScrollingRunnable!!, IS_SCROLLING_CHECK_TIMER.toLong())
+
             }
         }
 
-        isScrollingRunnable?.let { uiHandler.removeCallbacks(it) }
+        uiHandler.removeCallbacks(isScrollingRunnable!!)
         isScrollingCheckDuration = 0
         if (!destroyed)
-            isScrollingRunnable?.let {
-                uiHandler.postDelayed(it, IS_SCROLLING_CHECK_TIMER.toLong())
-            }
+            uiHandler.postDelayed(isScrollingRunnable!!, IS_SCROLLING_CHECK_TIMER.toLong())
+
     }
 }

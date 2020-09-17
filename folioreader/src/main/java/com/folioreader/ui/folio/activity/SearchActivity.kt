@@ -169,7 +169,7 @@ class SearchActivity : AppCompatActivity(), androidx.loader.app.LoaderManager.Lo
     private fun handleSearch() {
         Log.v(LOG_TAG, "-> handleSearch")
 
-        val query: String? = intent.getStringExtra(SearchManager.QUERY)
+        val query: String = intent.getStringExtra(SearchManager.QUERY)!!
         val loaderBundle = Bundle()
         loaderBundle.putParcelable(BUNDLE_SEARCH_URI, searchUri)
         loaderBundle.putString(SearchManager.QUERY, query)
