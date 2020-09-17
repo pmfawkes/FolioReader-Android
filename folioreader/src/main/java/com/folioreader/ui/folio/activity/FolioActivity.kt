@@ -789,14 +789,14 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
             val type = data.getStringExtra(TYPE)
 
             if (type == CHAPTER_SELECTED) {
-                goToChapter(data.getStringExtra(SELECTED_CHAPTER_POSITION))
+                goToChapter(data.getStringExtra(SELECTED_CHAPTER_POSITION)!!)
 
             } else if (type == HIGHLIGHT_SELECTED) {
                 val highlightImpl = data.getParcelableExtra<HighlightImpl>(HIGHLIGHT_ITEM)
-                currentChapterIndex = highlightImpl.pageNumber
+                currentChapterIndex = highlightImpl?.pageNumber ?: 0
                 mFolioPageViewPager!!.currentItem = currentChapterIndex
                 val folioPageFragment = currentFragment ?: return
-                folioPageFragment.scrollToHighlightId(highlightImpl.rangy)
+                highlightImpl?.rangy?.let { folioPageFragment.scrollToHighlightId(it) }
             }
         } else {
             isMenuOpen = false
