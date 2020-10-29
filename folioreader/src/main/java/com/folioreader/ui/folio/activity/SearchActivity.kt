@@ -125,7 +125,7 @@ class SearchActivity : AppCompatActivity(), androidx.loader.app.LoaderManager.Lo
             Log.e(LOG_TAG, "-> ", e)
         }
 
-        searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)!!
+        searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)
 
         var loaderBundle: Bundle? = null
         val dataBundle = intent.getBundleExtra(SearchAdapter.DATA_BUNDLE)
@@ -155,7 +155,7 @@ class SearchActivity : AppCompatActivity(), androidx.loader.app.LoaderManager.Lo
         Log.v(LOG_TAG, "-> onNewIntent")
 
         if (intent.hasExtra(BUNDLE_SEARCH_URI)) {
-            searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)!!
+            searchUri = intent.getParcelableExtra(BUNDLE_SEARCH_URI)
         } else {
             intent.putExtra(BUNDLE_SEARCH_URI, searchUri)
         }
