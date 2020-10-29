@@ -6,8 +6,8 @@ versions.projectVersionCode = 1
 versions.projectVersionName = "1.0"
 
 versions.androidMinSdkVersion = 21
-versions.androidCompileSdkVersion = 29
-versions.androidTargetSdkVersion = 29
+versions.androidCompileSdkVersion = 28
+versions.androidTargetSdkVersion = 28
 versions.androidSupportLibVersion = "28.0.0"
 
 versions.constraintLayoutVersion = "1.1.3"
